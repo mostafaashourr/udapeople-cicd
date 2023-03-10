@@ -44,7 +44,7 @@ jobs:
           name: Build front-end
           command: |
             cd frontend
-            npm insall
+            npm install
             npm run
       - save_cache:
           paths: [frontend/node_modules]
