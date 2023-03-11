@@ -25,13 +25,6 @@ commands:
             sudo add-apt-repository --yes --update ppa:ansible/ansible
             sudo apt install ansible
 
-  notify-on-failure:
-    steps:
-      - slack/notify:
-          event: fail
-          channel: udacity
-          template: basic_fail_1
-
 
 #   destroy-environment:
 #     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
@@ -81,7 +74,7 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-deps
-      - notify-on-failure
+
   build-backend:
     docker:
       - image: cimg/node:13.8.0
@@ -98,7 +91,7 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-deps
-      - notify-on-failure
+
   test-frontend:
     docker:
       - image: cimg/node:13.8.0
@@ -112,7 +105,7 @@ jobs:
              cd frontend
              npm install
              npm test
-      - notify-on-failure
+
   test-backend:
     docker:
       - image: cimg/node:13.8.0
@@ -129,8 +122,7 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-deps
-      - notify-on-failure
-            
+
   scan-frontend:
     docker:
       - image: cimg/node:13.8.0
@@ -146,7 +138,7 @@ jobs:
              npm audit fix --force --audit-level=critical
              npm audit fix --force --audit-level=critical
              npm audit --audit-level=critical
-      - notify-on-failure
+
   scan-backend:
     docker:
       - image: cimg/node:13.8.0
@@ -162,7 +154,6 @@ jobs:
              npm audit fix --force --audit-level=critical
              npm audit fix --force --audit-level=critical
              npm audit --audit-level=critical
-      - notify-on-failure
 
   deploy-infrastructure:
     docker:
