@@ -324,14 +324,6 @@ jobs:
 #             then
 #               # your code here
 #             fi
-  notify_on_success:
-    docker: 
-      - image: cimg/base
-    steps:
-      - slack/notify:
-        even: pass
-        channel: udacity
-        template: success_tagged_deployment_1
 
 
 
@@ -348,9 +340,6 @@ workflows:
           requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]
-      - notify_on_success:
-          requires:
-            - ""
       - deploy-infrastructure:
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
           filters:
