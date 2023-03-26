@@ -32,7 +32,7 @@ version: 2.1
 #               exit 1
 #             fi
             
-obs:
+jobs:
   build-frontend:
     docker:
       - image: circleci/node:13.8.0
