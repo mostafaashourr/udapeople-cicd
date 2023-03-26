@@ -19,7 +19,7 @@ async function bootstrap() {
     logger,
   });
 
-  console.log('hello from udapeopleffdddfff');
+  console.log('hello from udapeopleffffffdddfff');
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   const apiVersionPrefix: string = process.env.API_VERSION || 'api';
   app.setGlobalPrefix(apiVersionPrefix);
