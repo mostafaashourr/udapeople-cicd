@@ -415,19 +415,19 @@ jobs:
 
         - run:
             name: Remove old stack workflow 
-            command: |
-              export oldWorkflowID=$(curl --insecure https://kvdb.io/7JbUdv1oVTS6fWMUvpWz6h/oldWorkflowID)
-              echo oldWorkflowID: "${oldWorkflowID}"
+            command:  |
+              export OldWorkflowID=$(curl --insecure https://kvdb.io/7JbUdv1oVTS6fWMUvpWz6h/oldWorkflowID)
+              echo oldWorkflowID: "${OldWorkflowID}"
               echo CIRCLE_WORKFLOW_ID "${CIRCLE_WORKFLOW_ID:0:7}"        
               export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
                       --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
               echo Stack names: "${STACKS[@]}"  
               if [[ "${STACKS[@]}" =~ "${oldWorkflowID}" ]]
               then
-                echo oldstack: "${s3://udapeople-${oldWorkflowID}}"  
-                aws s3 rm "s3://udapeople-${oldWorkflowID}" --recursive
-                aws cloudformation delete-stack --stack-name "backend-${oldWorkflowID}"
-                aws cloudformation delete-stack  --stack-name "frontend-${oldWorkflowID}"
+                echo oldstack: "${s3://udapeople-${OldWorkflowID}}"  
+                aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
+                aws cloudformation delete-stack --stack-name "backend-${OldWorkflowID}"
+                aws cloudformation delete-stack  --stack-name "frontend-${OldWorkflowID}"
                 echo "Stacks deleted succesfully"
               else
                 echo nothing to delete
